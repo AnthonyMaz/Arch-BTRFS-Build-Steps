@@ -178,7 +178,7 @@ To restore from snapshot you just delete the currently used subvolume and replac
 
 After loading from the archiso USB, run the below.
 ```
-mount /dev/sda2 /mnt
-btrfs subvolume delete /mnt/@root
-brtfs subvolume snapshot /mnt/@snapshots/@root-2019-11-10-20:19 /mnt/@root
+	mount /dev/sda2 /mnt
+	btrfs subvolume delete /mnt/@root
+	brtfs subvolume snapshot /mnt/@snapshots/@root-2019-11-10-20:19 /mnt/@root
 ```

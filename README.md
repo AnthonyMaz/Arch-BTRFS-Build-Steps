@@ -148,14 +148,14 @@ When you log into your arch install, configure wheel and vim.
 
 A few things you can add to your .bashrc and/or .zshrc
 ```
-alias ls='ls --color=auto'
-PS1='[\u@\h \W]\$ '
-alias ll='ls -l'
-alias grep='grep --color=always'
-export HISTTIMEFORMAT="%h %d %H:%M:%S "
-alias snap-home='sudo btrfs subvolume snapshot /home/ /.snapshots/$(date +%m-%d-%Yhome)'
-alias snap-var='sudo btrfs subvolume snapshot /var/ /.snapshots/$(date +%m-%d-%Yvar)'
-alias snap-root='sudo btrfs subvolume snapshot / /.snapshots/$(date +%m-%d-%Yroot)'
+	alias ls='ls --color=auto'
+	PS1='[\u@\h \W]\$ '
+	alias ll='ls -l'
+	alias grep='grep --color=always'
+	export HISTTIMEFORMAT="%h %d %H:%M:%S "
+	alias snap-home='sudo btrfs subvolume snapshot /home/ /.snapshots/$(date +%m-%d-%Yhome)'
+	alias snap-var='sudo btrfs subvolume snapshot /var/ /.snapshots/$(date +%m-%d-%Yvar)'
+	alias snap-root='sudo btrfs subvolume snapshot / /.snapshots/$(date +%m-%d-%Yroot)'
 ```
 
 
@@ -172,7 +172,7 @@ Just boot off the iso and mount everything, and run genfstab.**
 ###You can create snapshots with the below command. 
 I recommend just using an alias for each subvolume like above.
 ```
-btrfs subvolume snapshot -r / "/.snapshots/@root-$(date +%F-%R)"
+	btrfs subvolume snapshot -r / "/.snapshots/@root-$(date +%F-%R)"
 ```
 To restore from snapshot you just delete the currently used subvolume and replace it with an earlier snapshot.
 

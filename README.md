@@ -169,7 +169,7 @@ Just boot off the iso and mount everything, and run genfstab.**
 	genfstab -p /mnt >> /mnt/etc/fstab
 ```
 
-##You can create snapshots with the below command. 
+## You can create snapshots with the below command. 
 I recommend just using an alias for each subvolume like above.
 ```
 	btrfs subvolume snapshot -r / "/.snapshots/@root-$(date +%F-%R)"

@@ -141,6 +141,7 @@ When you log into your arch install, configure wheel and vim.
 	%wheel ALL=(ALL) NOPASSWD: ALL
 	:wq
 ```
+```
 	# vim /etc/environment		
 	EDITOR=/usr/bin/vim
 	:wq

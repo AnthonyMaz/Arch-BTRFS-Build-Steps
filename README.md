@@ -213,7 +213,8 @@ EDITOR=/usr/bin/vim
 :wq
 ```
 
-Configure NTP (Network Time Protocol): If desired go to the url https://www.ntppool.org/en/ and click on your countries region to see the server lists. Once you see the servers for your region, add them to the file below. I used North America for this example. You can use the default servers in the conf file, but be sure it looks as shown below.  
+Configure NTP (Network Time Protocol):
+If desired go to the url https://www.ntppool.org/en/ and click on your countries region to see the server lists. Once you see the servers for your region, add them to the file below. I used North America for this example. You can use the default servers in the conf file, but be sure it looks as shown below.  
 ```
 vim /etc/ntp.con
 ```

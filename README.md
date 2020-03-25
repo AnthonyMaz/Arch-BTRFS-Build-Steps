@@ -1,5 +1,26 @@
 # Arch-BTRFS-Build-Steps
 ============
+If you are not connected to a network via a wire, then you have to connect to Wi-Fi. Connect using the below command, and run through the menu to select the SSID and type in the password. 
+```bash
+wifi-menu
+```
+You can test the connection by pinging one of google's DNS servers.
+```bash
+ping -c 4 8.8.8.8
+```
+You should see the below result, if the connection is successfull.  
+```bash
+PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=55 time=33.4 ms
+64 bytes from 8.8.8.8: icmp_seq=2 ttl=55 time=45.7 ms
+64 bytes from 8.8.8.8: icmp_seq=3 ttl=55 time=42.2 ms
+64 bytes from 8.8.8.8: icmp_seq=4 ttl=55 time=20.9 ms
+
+--- 8.8.8.8 ping statistics ---
+4 packets transmitted, 4 received, 0% packet loss, time 3004ms
+rtt min/avg/max/mdev = 20.881/35.550/45.693/9.571 ms
+```
+If you have a 100% packet loss, then double check the password for your SSID.
 
 ####Partitioning drive
 ```bash
@@ -58,7 +79,7 @@ Delete every except for the mirrors in your country (press 'dd' to delete the cu
 
 Install base system, bootloader, and other useful packages
 ```bash
-pacstrap /mnt base base-devel grub vim networkmanager wget htop lsof dkms openssh mkinitcpio linux linux-firmware
+pacstrap /mnt base base-devel grub vim networkmanager wget htop lsof dkms openssh mkinitcpio linux linux-firmware 
 ```
 
 
@@ -145,7 +166,7 @@ systemctl enable NetworkManager.service
 
 A few other packages to install.
 ```bash
-pacman -S ttf-dejavu xorg-twm xterm alsa-utils gnome-tweaks zsh
+pacman -S ttf-dejavu xorg-twm xterm alsa-utils gnome-tweaks zsh ntp elinks
 ```
 
 After installing any other packages, exit arch-chroot, unmount all subvolues and partitions, then restart to your Arch install.
@@ -191,7 +212,86 @@ EDITOR=/usr/bin/vim
 :wq
 ```
 
-A few things you can add to your .bashrc
+Configure NTP (Network Time Protocol): If desired go to the url https://www.ntppool.org/en/ and click on your countries region to see the server lists. Once you see the servers for your region, add them to the file below. I used North America for this example. You can use the default servers in the conf file, but be sure it looks as shown below.  
+```
+vim /etc/ntp.con
+```
+Your config file should look as it does below:
+```
+# Please consider joining the pool:
+#
+#     http://www.pool.ntp.org/join.html
+#
+# For additional information see:
+# - https://wiki.archlinux.org/index.php/Network_Time_Protocol_daemon
+# - http://support.ntp.org/bin/view/Support/GettingStarted
+# - the ntp.conf man page
+
+# Associate to Arch's NTP pool
+server 0.arch.pool.ntp.org
+server 1.arch.pool.ntp.org
+server 2.arch.pool.ntp.org
+server 3.arch.pool.ntp.org
+
+# By default, the server allows:
+# - all queries from the local host
+# - only time queries from remote hosts, protected by rate limiting and kod
+restrict default kod limited nomodify nopeer noquery notrap
+restrict 127.0.0.1
+restrict ::1
+
+# Location of drift file
+driftfile /var/lib/ntp/ntp.drift
+```
+Next, comment out or remove lines 11-14. Then add the 4 servers as seen below.
+```
+:set number
+:i
+  1 # Please consider joining the pool:
+  2 #
+  3 #     http://www.pool.ntp.org/join.html
+  4 #
+  5 # For additional information see:
+  6 # - https://wiki.archlinux.org/index.php/Network_Time_Protocol_daemon
+  7 # - http://support.ntp.org/bin/view/Support/GettingStarted
+  8 # - the ntp.conf man page
+  9 
+ 10 # Associate to Arch's NTP pool
+ 11 #server 0.arch.pool.ntp.org
+ 12 #server 1.arch.pool.ntp.org
+ 13 #server 2.arch.pool.ntp.org
+ 14 #server 3.arch.pool.ntp.org
+ 15 server 0.north-america.pool.ntp.org
+ 16 server 1.north-america.pool.ntp.org
+ 17 server 2.north-america.pool.ntp.org
+ 18 server 3.north-america.pool.ntp.org
+ 19 
+ 20 # By default, the server allows:
+ 21 # - all queries from the local host
+ 22 # - only time queries from remote hosts, protected by rate limiting and kod
+ 23 restrict default kod limited nomodify nopeer noquery notrap
+ 24 restrict 127.0.0.1
+ 25 restrict ::1
+ 26 
+ 27 # Location of drift file
+ 28 driftfile /var/lib/ntp/ntp.drift  
+:wq
+```
+
+Enable (load at boot time), start, and check the status of the ntp service to confirm no errors:
+```
+# systemctl enable ntpd.service
+# systemctl start ntpd.service
+# systemctl status ntpd.service
+```
+
+A few things you can add to your .vimrc:
+```
+set number
+syntax on
+```
+
+A few things you can add to your .bashrc:
 ```bash
 alias ls='ls --color=auto'
 PS1='[\u@\h \W]\$ '

@@ -1,5 +1,6 @@
 # Arch-BTRFS-Build-Steps
 ============
+
 If you are not connected to a network via a wire, then you have to connect to Wi-Fi. Connect using the below command, and run through the menu to select the SSID and type in the password. 
 ```bash
 wifi-menu

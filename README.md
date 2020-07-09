@@ -80,7 +80,7 @@ Delete every except for the mirrors in your country (press 'dd' to delete the cu
 
 Install base system, bootloader, and other useful packages
 ```bash
-pacstrap /mnt base base-devel grub vim networkmanager wget htop lsof dkms openssh mkinitcpio linux linux-firmware 
+pacstrap /mnt base base-devel grub vim networkmanager wget htop lsof dkms openssh mkinitcpio linux linux-firmware net-tools
 ```
 
 
@@ -285,6 +285,12 @@ Enable (load at boot time), start, and check the status of the ntp service to co
 # systemctl enable ntpd.service
 # systemctl start ntpd.service
 # systemctl status ntpd.service
+```
+Enable (load at boot time), start, and check the status of the NetworkManager service to confirm no errors:
+```
+# systemctl enable NetworkManager.service
+# systemctl start NetworkManager.service
+# systemctl status NetworkManager.service
 ```
 
 A few things you can add to your .vimrc:
